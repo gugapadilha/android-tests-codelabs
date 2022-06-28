@@ -7,7 +7,6 @@ import org.hamcrest.core.Is.`is`
 import org.junit.Test
 
 class StatisticsUtilsTest {
-
     @Test
     fun getActiveAndCompletedStats_noCompleted_returnsHundredZero(){
         // Create an active task
@@ -33,7 +32,7 @@ class StatisticsUtilsTest {
 
         // Then the percentages are 0 and 100
         // The `is` its called Hamcrets, and it is a dependency thats allow to write in the middle
-        // of an answer
+        // of an answer.
         assertThat(result.activeTasksPercent, `is`(0f))
         assertThat(result.completedTasksPercent, `is`(100f))
     }
