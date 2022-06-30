@@ -97,6 +97,7 @@ class TasksFragment : Fragment() {
         setupFab()
     }
 
+
     private fun setupNavigation() {
         viewModel.openTaskEvent.observe(viewLifecycleOwner, EventObserver {
             openTaskDetails(it)
