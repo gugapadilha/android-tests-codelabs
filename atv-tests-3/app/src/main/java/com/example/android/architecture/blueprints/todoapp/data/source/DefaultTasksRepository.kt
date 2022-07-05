@@ -24,6 +24,7 @@ import com.example.android.architecture.blueprints.todoapp.data.Task
 import com.example.android.architecture.blueprints.todoapp.data.source.local.TasksLocalDataSource
 import com.example.android.architecture.blueprints.todoapp.data.source.local.ToDoDatabase
 import com.example.android.architecture.blueprints.todoapp.data.source.remote.TasksRemoteDataSource
+import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource.wrapEspressoIdlingResource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -39,14 +40,16 @@ class DefaultTasksRepository(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) : TasksRepository {
 
     override suspend fun getTasks(forceUpdate: Boolean): Result<List<Task>> {
-        if (forceUpdate) {
-            try {
-                updateTasksFromRemoteDataSource()
-            } catch (ex: Exception) {
-                return Result.Error(ex)
+        wrapEspressoIdlingResource {
+            if (forceUpdate) {
+                try {
+                    updateTasksFromRemoteDataSource()
+                } catch (ex: Exception) {
+                    return Result.Error(ex)
+                }
             }
+            return tasksLocalDataSource.getTasks()
         }
-        return tasksLocalDataSource.getTasks()
     }
 
     override suspend fun refreshTasks() {

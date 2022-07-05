@@ -50,33 +50,6 @@
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/tasks_linear_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}">
-
-                    <TextView
-                        android:id="@+id/filtering_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/list_item_padding"
-                        android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:layout_marginRight="@dimen/list_item_padding"
-                        android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:gravity="center_vertical"
-                        android:text="@{context.getString(viewmodel.currentFilteringLabel)}"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/tasks_list"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        app:items="@{viewmodel.items}" />
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/no_tasks_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -113,6 +86,35 @@
             app:fabSize="normal"
             app:layout_anchor="@id/refresh_layout"
             app:layout_anchorGravity="bottom|right|end" />
+
+        <LinearLayout
+            android:id="@+id/tasks_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}"
+            app:layout_anchor="@+id/refresh_layout"
+            app:layout_anchorGravity="center">
+
+            <TextView
+                android:id="@+id/filtering_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/list_item_padding"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/list_item_padding"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center_vertical"
+                android:text="@{context.getString(viewmodel.currentFilteringLabel)}"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tasks_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:items="@{viewmodel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
 
